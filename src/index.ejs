@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%= htmlWebpackPlugin.options.title %></title>
-<style>
-    body {
-        margin:0px;
-    }
-</style>
+    <style>
+        body {
+            margin: 0px;
+            height: 100%;
+            width: 100%;
+        }
+
+        #gameCanvas {
+            margin: auto;
+            display: block;
+            align-content: center;
+            width: 500px;
+            height: 800px;
+            background-color: azure;
+        }
+    </style>
 </head>
+
 <body>
-    <canvas id="gameCanvas" style="background-color: azure; width: 500px; height: 500px;" width="500" height="500">
+    <canvas id="gameCanvas">
 
     </canvas>
 </body>
+
 </html>

@@ -734,7 +734,7 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar pixi_js_1 = __webpack_require__(/*! pixi.js */ \"./node_modules/pixi.js/lib/pixi.es.js\");\nvar htmlElement = document.getElementById(\"gameCanvas\");\nvar app = new pixi_js_1.Application({\n    view: htmlElement\n});\napp.ticker.add(function (delta) {\n    // rotate the container!\n    // use delta to create frame-independent transform\n    // container.rotation -= 0.01 * delta;\n});\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar pixi_js_1 = __webpack_require__(/*! pixi.js */ \"./node_modules/pixi.js/lib/pixi.es.js\");\nvar htmlElement = document.getElementById(\"gameCanvas\");\nvar app = new pixi_js_1.Application({\n    height: 500,\n    view: htmlElement,\n    width: 500,\n});\nvar texture = pixi_js_1.Texture.from(\"assets/background.jpg\");\nvar tileSprite = new pixi_js_1.TilingSprite(texture, app.screen.width, app.screen.height);\n// const bunny = new Sprite(texture);\n// bunny.x = 0\n// bunny.y = 0\n// bunny.width = 500\n// bunny.height = 500\napp.stage.addChild(tileSprite);\napp.ticker.add(function (deltaTime) {\n    tileSprite.tilePosition.y += 1 * deltaTime;\n});\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ })
 
