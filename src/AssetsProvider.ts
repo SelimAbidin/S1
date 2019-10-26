@@ -15,6 +15,10 @@ class AssetsProvider extends EventEmitter {
         loader.onProgress.add(this.onProgress)
     }
 
+    load() {
+        this.loader.load();
+    }
+
     onStart = (loader: Loader, resource: LoaderResource) => {
         console.log("onStart");
         const event: AssetsProviderStatusEvent = {
@@ -49,6 +53,11 @@ class AssetsProvider extends EventEmitter {
     loadTexture(key: string, path: string) {
         const loader = this.loader;
         loader.add(key, path)
+    }
+
+    loadAnimJSON(path: string) {
+        const loader = this.loader;
+        loader.add(path)
     }
 
     addAsset(key: string, asset: any): void {
