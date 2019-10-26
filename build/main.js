@@ -726,6 +726,42 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 /***/ }),
 
+/***/ "./src/AssetsProvider.ts":
+/*!*******************************!*\
+  !*** ./src/AssetsProvider.ts ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nvar __extends = (this && this.__extends) || (function () {\n    var extendStatics = function (d, b) {\n        extendStatics = Object.setPrototypeOf ||\n            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||\n            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };\n        return extendStatics(d, b);\n    };\n    return function (d, b) {\n        extendStatics(d, b);\n        function __() { this.constructor = d; }\n        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());\n    };\n})();\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar pixi_js_1 = __webpack_require__(/*! pixi.js */ \"./node_modules/pixi.js/lib/pixi.es.js\");\nvar EventEmitter = pixi_js_1.utils.EventEmitter;\nvar AssetsProviderEvent_1 = __webpack_require__(/*! ./events/AssetsProviderEvent */ \"./src/events/AssetsProviderEvent.ts\");\nvar AssetsProvider = /** @class */ (function (_super) {\n    __extends(AssetsProvider, _super);\n    function AssetsProvider(loader) {\n        var _this = _super.call(this) || this;\n        _this.assets = new Map();\n        _this.onStart = function (loader, resource) {\n            console.log(\"onStart\");\n            var event = {\n                status: AssetsProviderEvent_1.AssetsProviderStatus.START\n            };\n            _this.emit(AssetsProviderEvent_1.AssetsProviderEventType.START, event);\n        };\n        _this.onComplete = function (loader, resource) {\n            console.log(\"COMPLETE\");\n            var event = {\n                status: AssetsProviderEvent_1.AssetsProviderStatus.COMPLETE\n            };\n            _this.emit(AssetsProviderEvent_1.AssetsProviderEventType.COMPLETE, event);\n        };\n        _this.onError = function (loader, resource) {\n            console.log(\"onError\");\n            _this.emit(AssetsProviderEvent_1.AssetsProviderEventType.ERROR);\n        };\n        _this.onProgress = function (loader, resource) {\n            console.log(\"onProgress\");\n            var event = {\n                progress: loader.progress,\n                max: 100,\n                min: 0\n            };\n            _this.emit(AssetsProviderEvent_1.AssetsProviderEventType.PROGRESS, event);\n        };\n        _this.loader = loader;\n        loader.onStart.add(_this.onStart);\n        loader.onComplete.add(_this.onComplete);\n        loader.onError.add(_this.onError);\n        loader.onProgress.add(_this.onProgress);\n        return _this;\n    }\n    AssetsProvider.prototype.loadTexture = function (key, path) {\n        var loader = this.loader;\n        loader.add(key, path);\n    };\n    AssetsProvider.prototype.addAsset = function (key, asset) {\n        var assets = this.assets;\n        if (!assets.has(key)) {\n            assets.set(key, asset);\n        }\n    };\n    AssetsProvider.prototype.getAsset = function (key) {\n        var assets = this.assets;\n        if (assets.has(key)) {\n            return assets.get(key);\n        }\n        throw new Error(\"\\\"\" + key + \"\\\" not found!\");\n    };\n    return AssetsProvider;\n}(EventEmitter));\nexports.AssetsProvider = AssetsProvider;\n\n\n//# sourceURL=webpack:///./src/AssetsProvider.ts?");
+
+/***/ }),
+
+/***/ "./src/Stars/index.ts":
+/*!****************************!*\
+  !*** ./src/Stars/index.ts ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar pixi_js_1 = __webpack_require__(/*! pixi.js */ \"./node_modules/pixi.js/lib/pixi.es.js\");\nvar Stars = /** @class */ (function () {\n    function Stars(texture, width, height) {\n        this.speedX = 0;\n        this.speedY = 0;\n        this.view = new pixi_js_1.TilingSprite(texture, width, height);\n    }\n    Stars.prototype.getView = function () {\n        return this.view;\n    };\n    Stars.prototype.setMoveSpeed = function (x, y) {\n        this.speedX = x;\n        this.speedY = y;\n    };\n    Stars.prototype.update = function (deltaTime) {\n        this.view.tilePosition.y += this.speedY * deltaTime;\n        this.view.tilePosition.x += this.speedX * deltaTime;\n    };\n    return Stars;\n}());\nexports.Stars = Stars;\n\n\n//# sourceURL=webpack:///./src/Stars/index.ts?");
+
+/***/ }),
+
+/***/ "./src/events/AssetsProviderEvent.ts":
+/*!*******************************************!*\
+  !*** ./src/events/AssetsProviderEvent.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar AssetsProviderEventType;\n(function (AssetsProviderEventType) {\n    AssetsProviderEventType[\"COMPLETE\"] = \"onComplete\";\n    AssetsProviderEventType[\"START\"] = \"onStart\";\n    AssetsProviderEventType[\"PROGRESS\"] = \"onProgress\";\n    AssetsProviderEventType[\"ERROR\"] = \"onError\";\n})(AssetsProviderEventType || (AssetsProviderEventType = {}));\nexports.AssetsProviderEventType = AssetsProviderEventType;\nvar AssetsProviderStatus;\n(function (AssetsProviderStatus) {\n    AssetsProviderStatus[\"START\"] = \"START\";\n    AssetsProviderStatus[\"COMPLETE\"] = \"COMPLETE\";\n})(AssetsProviderStatus || (AssetsProviderStatus = {}));\nexports.AssetsProviderStatus = AssetsProviderStatus;\n\n\n//# sourceURL=webpack:///./src/events/AssetsProviderEvent.ts?");
+
+/***/ }),
+
 /***/ "./src/index.ts":
 /*!**********************!*\
   !*** ./src/index.ts ***!
@@ -734,7 +770,7 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar pixi_js_1 = __webpack_require__(/*! pixi.js */ \"./node_modules/pixi.js/lib/pixi.es.js\");\nvar htmlElement = document.getElementById(\"gameCanvas\");\nvar app = new pixi_js_1.Application({\n    height: 500,\n    view: htmlElement,\n    width: 500,\n});\nvar texture = pixi_js_1.Texture.from(\"assets/background.jpg\");\nvar tileSprite = new pixi_js_1.TilingSprite(texture, app.screen.width, app.screen.height);\n// const bunny = new Sprite(texture);\n// bunny.x = 0\n// bunny.y = 0\n// bunny.width = 500\n// bunny.height = 500\napp.stage.addChild(tileSprite);\napp.ticker.add(function (deltaTime) {\n    tileSprite.tilePosition.y += 1 * deltaTime;\n});\n\n\n//# sourceURL=webpack:///./src/index.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar pixi_js_1 = __webpack_require__(/*! pixi.js */ \"./node_modules/pixi.js/lib/pixi.es.js\");\nvar index_1 = __webpack_require__(/*! ./Stars/index */ \"./src/Stars/index.ts\");\nvar AssetsProvider_1 = __webpack_require__(/*! ./AssetsProvider */ \"./src/AssetsProvider.ts\");\nvar AssetsProviderEvent_1 = __webpack_require__(/*! ./events/AssetsProviderEvent */ \"./src/events/AssetsProviderEvent.ts\");\nvar htmlElement = document.getElementById(\"gameCanvas\");\nvar app = new pixi_js_1.Application({\n    view: htmlElement,\n    width: 500,\n});\nvar provider = new AssetsProvider_1.AssetsProvider(app.loader);\nprovider.loadTexture('bunny', 'assets/background.jpg');\nprovider.loadTexture('fighter', 'assets/fighter.png');\nprovider.on(AssetsProviderEvent_1.AssetsProviderEventType.START, function (event) {\n    console.log(event);\n});\nprovider.on(AssetsProviderEvent_1.AssetsProviderEventType.PROGRESS, function (event) {\n    console.log(event);\n});\n// loader.add('bunny', 'assets/background.jpg')\n// app.loader.onComplete.add(() => {\n//     console.log(\"Complete\");\n// })\n// app.loader.add('bunny', 'assets/background.jpg')\n// app.loader.load(() => {\n//     console.log(\"Load\");\n// })\n// app.loader.onComplete.add(() => {\n//     console.log(\"ON COMPLETE\");\n// });\n// app.loader.onError.add(() => {\n//     console.log(\"ON ERROR\");\n// })\n// app.loader.onProgress.add((loader: Loader, resources: LoaderResource) => {\n//     console.log(\"ON PROGRESS\", loader.progress, resources);\n// });\nwindow.app = app;\nfunction init() {\n    var texture = pixi_js_1.Texture.from(\"assets/background.jpg\");\n    var stars = new index_1.Stars(texture, app.screen.width, app.screen.height);\n    app.stage.addChild(stars.getView());\n    stars.setMoveSpeed(0, 1);\n    app.ticker.add(function (deltaTime) {\n        stars.update(deltaTime);\n        // tileSprite.tilePosition.y += 1 * deltaTime;\n    });\n}\ninit();\n// app.loader\n//     .add('assets/spritesheet/fighter.json')\n//     .load((e) => {\n//     });\n// const tileSprite = new TilingSprite(\n//     texture,\n//     app.screen.width,\n//     app.screen.height,\n// );\n// app.stage.addChild(tileSprite);\n\n\n//# sourceURL=webpack:///./src/index.ts?");
 
 /***/ })
 
