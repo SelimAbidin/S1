@@ -59,8 +59,7 @@ class GameModel extends EventEmitter {
         clearInterval(this.timerID);
         this.setLife(3);
         this.setScore(0);
-        this.setRemainTime(5 * 2);
-        // this.setRemainTime(60 * 2);
+        this.setRemainTime(60 * 2);
         this.timerID = setInterval(this.onTimerTick, 1000);
     }
 

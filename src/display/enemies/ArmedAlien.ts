@@ -6,7 +6,7 @@ import { IEngineView } from "../IDisplayView";
 class ArmedAlien extends MovingAlien implements IArmedEnemy {
 
     private fireCount: number = 0;
-    private fireTime: number = 300;
+    private fireTime: number = 200;
     public needsFire: boolean = false;
     public bulletType: BulletType;
     constructor(view: IEngineView) {

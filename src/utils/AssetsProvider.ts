@@ -41,7 +41,12 @@ class AssetsProvider extends EventEmitter {
         this.loader.load();
     }
 
+    playSound(key: string) {
+        this.loader.resources[key].sound.play()
+    }
+
     onStart = (_loader: Loader, _resource: LoaderResource) => {
+
         const event: AssetsProviderStatusEvent = {
             status: AssetsProviderStatus.START
         }
@@ -49,6 +54,8 @@ class AssetsProvider extends EventEmitter {
     }
 
     onComplete = (_loader: Loader, _resource: LoaderResource) => {
+        console.log(_resource);
+
         const event: AssetsProviderStatusEvent = {
             status: AssetsProviderStatus.COMPLETE
         }
@@ -73,6 +80,11 @@ class AssetsProvider extends EventEmitter {
         loader.add(key, path)
     }
 
+    loadSound(key: string, path: string) {
+        const loader = this.loader;
+        loader.add(key, path)
+    }
+
     loadAnimJSON(path: string) {
         const loader = this.loader;
         loader.add(path)
@@ -83,14 +95,6 @@ class AssetsProvider extends EventEmitter {
         if (!assets.has(key)) {
             assets.set(key, asset);
         }
-    }
-
-    getAsset(key: string): any | never {
-        let assets = this.assets;
-        if (assets.has(key)) {
-            return assets.get(key)
-        }
-        throw new Error(`"${key}" not found!`);
     }
 
 }

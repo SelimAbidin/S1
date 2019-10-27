@@ -1,5 +1,8 @@
 import { AssetsProvider, AssetsProviderEventType, AssetsProviderProgressEvent } from "./utils/AssetsProvider";
 import { Loader, Application, Texture, Container, Point, AnimatedSprite } from "pixi.js";
+import "pixi-sound";
+
+
 import { Pooler } from "./utils/Pooler";
 import { EnemyFactory, EnemyTypes } from "./factories/EnemyFactory";
 import { BulletType, BulletFactory } from "./factories/BulletFactory";
@@ -39,6 +42,9 @@ class Game {
     private stage: Container;
     private hero: HeroPlane;
     private pixiApp: Application;
+    private startScreen: StartScreen;
+    private gameOverScreen: GameOverScreen;
+    private provider: AssetsProvider;
     constructor(canvasID: string, width: number, height: number) {
         this.canvasElement = document.getElementById(canvasID) as HTMLCanvasElement;
         this.gameHeight = height;
@@ -58,6 +64,8 @@ class Game {
         provider.on(AssetsProviderEventType.COMPLETE, (_event: AssetsProviderProgressEvent) => {
             this.init();
         });
+
+        this.provider = provider;
 
         provider.load();
     }
@@ -109,7 +117,8 @@ class Game {
         this.gameModel = new GameModel();
 
         this.bulletManager = new BulletManager(this.stage, this.pooler);
-        this.effectManager = new EffectManager(this.pooler, this.stage);
+
+        this.effectManager = new EffectManager(this.pooler, this.provider, this.stage);
         this.enemyManager = new EnemyManager(this.gameModel, this.bulletManager, this.effectManager, this.stage, this.pooler);
 
         this.stage.on('mousemove', this.onMouseMove);
@@ -120,23 +129,24 @@ class Game {
 
         this.collisionManager = new CollisionManager(this.gameModel, this.enemyManager, this.bulletManager, this.hero);
 
-        this.gameModel.on(GameModelEvent.LIFE_CHANGE, (_event: { life: number }) => {
+        this.gameModel.on(GameModelEvent.LIFE_CHANGE, (event: { life: number }) => {
 
-            this.effectManager.createEffectAt(this.hero.x, this.hero.y, EffectType.EXPLOTION);
-            this.hero.x = this.pixiApp.screen.width / 2;
-            this.hero.y = this.pixiApp.screen.height + this.hero.height;
-            this.bulletManager.removeAll();
-            this.enemyManager.explodeAll();
+            if (event.life < 3) {
+                this.effectManager.createEffectAt(this.hero.x, this.hero.y, EffectType.EXPLOTION);
+                this.hero.x = this.pixiApp.screen.width / 2;
+                this.hero.y = this.pixiApp.screen.height + this.hero.height;
+                this.bulletManager.removeAll();
+                this.enemyManager.explodeAll();
+                this.provider.playSound("explosionSound");
+            }
+
         })
 
         this.gameModel.on(GameModelEvent.HIGH_SCORE_CHANGE, (event: { score: number }) => {
             document.cookie = event.score.toString();
         })
 
-        this.gameModel.on(GameModelEvent.GAME_OVER, (event: { life: number }) => {
-            // this.effectManager.createEffectAt(this.hero.x, this.hero.y, EffectType.EXPLOTION);
-            // this.hero.x = this.pixiApp.screen.width / 2;
-            // this.hero.y = this.pixiApp.screen.height + this.hero.height;
+        this.gameModel.on(GameModelEvent.GAME_OVER, (_event: { life: number }) => {
             this.setGameState(GameStates.GAME_OVER);
         })
 
@@ -163,13 +173,11 @@ class Game {
             })
         } else if (states === GameStates.PLAYING) {
             this.resetGame();
-
         } else if (states === GameStates.GAME_OVER) {
             this.gameOverScreen.visible = true;
             this.stage.once('click', () => {
                 this.setGameState(GameStates.PLAYING);
             })
-
         }
 
         this.currentState = states;
@@ -239,13 +247,8 @@ class Game {
         this.stage.addChild(gameOverScreen.view);
 
     }
-    private startScreen: StartScreen;
-    private gameOverScreen: GameOverScreen;
-    // private secon: number = 0;
-    onFrame(deltaTime: number) {
 
-        // this.secon += deltaTime;
-        // console.log(this.secon);
+    onFrame(deltaTime: number) {
         this.stars.update(deltaTime);
 
         if (this.currentState === GameStates.PLAYING) {
@@ -255,6 +258,7 @@ class Game {
                 if (this.hero.needsFire) {
                     this.hero.resetFire();
                     this.bulletManager.createBulletAt(this.hero.x, this.hero.y, this.hero.bulletType);
+                    this.provider.playSound("laserSound");
                 }
             }
 
@@ -269,7 +273,6 @@ class Game {
 
     private setProcess(progress: number) {
         console.log(`Loading (${Math.round((progress / 100) * 100)}%)`);
-        // this.canvasElement.innerHTML = `Loading (${Math.round((progress / 100) * 100)}%)`
     }
 
     private loadAssets(loader: Loader): AssetsProvider {
@@ -278,8 +281,11 @@ class Game {
         provider.loadTexture('background', 'assets/background.jpg');
         provider.loadTexture('fighter', 'assets/fighter.png');
         provider.loadTexture('bullet', 'assets/temp/bullet.png');
+        provider.loadTexture('alien_bullet', 'assets/alienBullet.png');
         provider.loadTexture('heart', 'assets/heart.png');
         provider.loadTexture('alien', 'assets/temp/alien.png');
+        provider.loadSound('laserSound', 'assets/sound/laser.mp3');
+        provider.loadSound('explosionSound', 'assets/sound/explosion.mp3');
         provider.loadAnimJSON('assets/fighter.json');
         provider.loadAnimJSON('assets/mc.json');
         return provider;

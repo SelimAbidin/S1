@@ -1,10 +1,10 @@
 import { Pooler } from "../utils/Pooler";
-import { Container, utils } from "pixi.js";
+import { Container } from "pixi.js";
 import { EnemyTypes } from "../factories/EnemyFactory";
 import { GameModel } from "../GameModel";
 import { EffectManager } from "./EffectManager";
 import { EffectType } from "../factories/EffectFactory";
-import { IEnemy, IArmedEnemy } from "../display/enemies/IEnemy";
+import { IEnemy } from "../display/enemies/IEnemy";
 import { ArmedAlien } from "../display/enemies/ArmedAlien";
 import { BulletManager } from "./BulletManager";
 
@@ -60,14 +60,13 @@ class EnemyManager {
             let types = Object.keys(EnemyTypes);
             let values = Object.values(EnemyTypes);
             let enemyIndex = Math.floor(Math.random() * types.length);
-            this.createEnemyAt(Math.random() * 800, -100, values[enemyIndex] as EnemyTypes);
+            this.createEnemyAt((Math.random() * 450) + 50, -100, values[enemyIndex] as EnemyTypes);
             this.enemyCounter = 0;
         }
 
         for (let i = 0; i < enemyList.length; i++) {
             const enemy = enemyList[i];
             enemy.update(deltaTime);
-            // console.log(enemy as IArmedEnemy);
 
             if (enemy instanceof ArmedAlien) {
 

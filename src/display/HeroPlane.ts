@@ -31,7 +31,7 @@ class HeroPlane extends Object2D {
     update(deltaTime: number): void {
 
         this.fireCounter += deltaTime;
-        if (this.fireCounter > 5) {
+        if (this.fireCounter > 10) {
             this.needsFire = true;
         }
 

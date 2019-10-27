@@ -2,11 +2,12 @@ import { Explotion } from "../display/effects/Explotion";
 import { EffectType } from "../factories/EffectFactory";
 import { Pooler } from "../utils/Pooler";
 import { Container, DisplayObject } from "pixi.js";
+import { AssetsProvider } from "../utils/AssetsProvider";
 
 
 class EffectManager {
     private effectList: Explotion[] = [];
-    constructor(private readonly pooler: Pooler, private stage: Container) {
+    constructor(private readonly pooler: Pooler, private assetProvider: AssetsProvider, private stage: Container) {
 
     }
 
@@ -17,6 +18,7 @@ class EffectManager {
         this.stage.addChild(effect.getChildView() as any);
         effect.reset();
         this.effectList.push(effect);
+        this.assetProvider.playSound("explosionSound");
     }
 
     removeEffect(explotion: Explotion) {

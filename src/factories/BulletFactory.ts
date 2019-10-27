@@ -39,7 +39,7 @@ class BulletFactory {
             return bullet;
         } else if (type === BulletType.ALIEN_BULLET) {
 
-            const texture = getTexture("bullet");
+            const texture = getTexture("alien_bullet");
             let view = new Sprite(texture);
             view.anchor.set(0.5);
             view.zIndex = 0;

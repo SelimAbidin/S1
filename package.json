@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "webpack --mode development",
     "dev:server": "webpack-dev-server --mode development",
-    "lint":"tslint src/**/*.ts"
+    "lint": "tslint src/**/*.ts"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^5.0.4",
@@ -23,6 +23,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "pixi-sound": "^3.0.3",
     "pixi.js": "^5.1.5"
   }
 }
