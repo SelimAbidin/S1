@@ -1,19 +1,17 @@
 import { Alien } from "../display/enemies/Alien";
 import { IEnemy } from "../display/enemies/IEnemy";
-import { MovingAliens } from "../display/enemies/MovingAliens";
+import { MovingAlien } from "../display/enemies/MovingAlien";
+import { ArmedAlien } from "../display/enemies/ArmedAlien";
 
 
 enum EnemyTypes {
-    ALIEN = 'ALIEN',
-    MOVING_ALIEN = 'MOVING_ALIEN',
+    ALIEN = 'alien',
+    MOVING_ALIEN = 'movingAlien',
+    ARMED_ALIEN = 'ArmedAlien',
 }
 
 
 class EnemyFactory {
-
-    constructor() {
-
-    }
 
     public createEnemyByType(type: EnemyTypes): IEnemy | null {
 
@@ -21,7 +19,10 @@ class EnemyFactory {
             let enemy = new Alien();
             return enemy;
         } else if (type === EnemyTypes.MOVING_ALIEN) {
-            let enemy = new MovingAliens();
+            let enemy = new MovingAlien();
+            return enemy;
+        } else if (type === EnemyTypes.ARMED_ALIEN) {
+            let enemy = new ArmedAlien();
             return enemy;
         }
         return null;

@@ -1,7 +1,10 @@
 import { Bullet } from "../display/bullets/Bullet";
+import { IBullet } from "../display/bullets/IBullet";
+import { AlienBullet } from "../display/bullets/AlienBullet";
 
 enum BulletType {
-    LASER = 'LASER'
+    LASER = 'LASER',
+    ALIEN_BULLET = 'alienBullet'
 }
 
 class BulletFactory {
@@ -9,10 +12,15 @@ class BulletFactory {
 
     }
 
-    public createBulletByType(type: BulletType) {
+    public createBulletByType(type: BulletType): IBullet | null {
 
         if (type === BulletType.LASER) {
             let bullet = new Bullet();
+            bullet.hitEnemy = true;
+            return bullet;
+        } else if (type === BulletType.ALIEN_BULLET) {
+            let bullet = new AlienBullet();
+            bullet.hitEnemy = false;
             return bullet;
         }
 

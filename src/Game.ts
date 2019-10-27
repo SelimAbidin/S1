@@ -110,7 +110,7 @@ class Game {
 
         this.bulletManager = new BulletManager(this.stage, this.pooler);
         this.effectManager = new EffectManager(this.pooler, this.stage);
-        this.enemyManager = new EnemyManager(this.gameModel, this.effectManager, this.stage, this.pooler);
+        this.enemyManager = new EnemyManager(this.gameModel, this.bulletManager, this.effectManager, this.stage, this.pooler);
 
         this.stage.on('mousemove', this.onMouseMove);
         this.stage.on('mousedown', this.onMouseDown);

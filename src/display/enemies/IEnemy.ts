@@ -1,4 +1,5 @@
 import { IDisplayView } from "../IDisplayView"
+import { BulletType } from "../../factories/BulletFactory";
 
 
 
@@ -9,7 +10,13 @@ interface IBaseEnemy {
     speed: number;
 }
 
+interface IArmedEnemy {
+    needsFire: boolean;
+    bulletType: BulletType;
+    resetFire(): void;
+}
+
 type IEnemy = IDisplayView & IBaseEnemy;
 
 
-export { IEnemy }
+export { IEnemy, IArmedEnemy }

@@ -4,6 +4,7 @@ import { Bullet } from "../display/bullets/Bullet";
 import { HeroPlane } from "../display/HeroPlane";
 import { GameModel } from "../GameModel";
 import { IEnemy } from "../display/enemies/IEnemy";
+import { IBullet } from "../display/bullets/IBullet";
 
 
 function distance(x: number, y: number, x2: number, y2: number): number {
@@ -22,7 +23,21 @@ class CollisionManager {
         if (this.tick % 2) {
 
             let enemyList: IEnemy[] = this.enemyManager.getList();
-            let bulletList: Bullet[] = this.bulletManager.getList();
+            let bulletList: IBullet[] = this.bulletManager.getList();
+
+
+            for (let i = 0; i < bulletList.length; i++) {
+                const bullet = bulletList[i];
+                if (!bullet.hitEnemy) {
+                    let dist = distance(bullet.x, bullet.y, this.hero.x, this.hero.y);
+                    if (dist < (bullet.width + this.hero.width) / 2) {
+                        this.bulletManager.removeBullet(bullet);
+                        this.gameMode.removeLife();
+                        return;
+                    }
+                }
+            }
+
 
             for (let i = 0; i < enemyList.length; i++) {
                 const enemy = enemyList[i];
@@ -37,15 +52,15 @@ class CollisionManager {
 
                 for (let j = 0; j < bulletList.length; j++) {
                     const bullet = bulletList[j];
-                    let dist = distance(bullet.getView().x, bullet.getView().y, enemy.x, enemy.y);
-
-                    if (dist < (bullet.getView().width + enemy.width) / 2) {
-                        this.bulletManager.removeBullet(bullet);
-                        this.enemyManager.removeEnemy(enemy);
+                    if (bullet.hitEnemy) {
+                        let dist = distance(bullet.x, bullet.y, enemy.x, enemy.y);
+                        if (dist < (bullet.width + enemy.width) / 2) {
+                            this.bulletManager.removeBullet(bullet);
+                            this.enemyManager.removeEnemy(enemy);
+                        }
                     }
+
                 }
-
-
             }
         }
     }

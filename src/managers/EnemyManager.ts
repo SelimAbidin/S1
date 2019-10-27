@@ -4,14 +4,15 @@ import { EnemyTypes } from "../factories/EnemyFactory";
 import { GameModel } from "../GameModel";
 import { EffectManager } from "./EffectManager";
 import { EffectType } from "../factories/EffectFactory";
-import { IEnemy } from "../display/enemies/IEnemy";
-import { IDisplayView } from "../display/IDisplayView";
+import { IEnemy, IArmedEnemy } from "../display/enemies/IEnemy";
+import { ArmedAlien } from "../display/enemies/ArmedAlien";
+import { BulletManager } from "./BulletManager";
 
 class EnemyManager {
 
     private enemyList: IEnemy[] = [];
     private enemyCounter: number = 20;
-    constructor(private readonly gameModel: GameModel, private readonly effectManager: EffectManager, private readonly stage: Container, private pooler: Pooler) {
+    constructor(private readonly gameModel: GameModel, private readonly bulletManager: BulletManager, private readonly effectManager: EffectManager, private readonly stage: Container, private pooler: Pooler) {
     }
 
     createEnemyAt(x: number, y: number, type: EnemyTypes) {
@@ -55,6 +56,18 @@ class EnemyManager {
         for (let i = 0; i < enemyList.length; i++) {
             const enemy = enemyList[i];
             enemy.update(deltaTime);
+            // console.log(enemy as IArmedEnemy);
+
+            if (enemy instanceof ArmedAlien) {
+
+                if (enemy.needsFire) {
+                    let bullet = this.bulletManager.createBulletAt(enemy.x, enemy.y, enemy.bulletType);
+                    bullet.setVelocity(0, 1);
+                    enemy.resetFire();
+                }
+
+            }
+
             if (enemy.y > 800 + 100) {
                 this.removeEnemy(enemyList[i]);
                 i--;

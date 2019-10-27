@@ -2,7 +2,7 @@ import { Alien } from "./Alien";
 
 
 
-class MovingAliens extends Alien {
+class MovingAlien extends Alien {
 
     protected xMove: number = 0;
     constructor() {
@@ -17,4 +17,4 @@ class MovingAliens extends Alien {
     }
 }
 
-export { MovingAliens }
+export { MovingAlien }

@@ -2,32 +2,35 @@ import { Bullet } from "../display/bullets/Bullet";
 import { Pooler } from "../utils/Pooler";
 import { BulletType } from "../factories/BulletFactory";
 import { Container } from "pixi.js";
+import { IBullet } from "../display/bullets/IBullet";
 
 
 class BulletManager {
 
 
-    private bulletList: Bullet[] = [];
+    private bulletList: IBullet[] = [];
     constructor(private stage: Container, private pooler: Pooler) {
 
     }
 
-    getList(): Bullet[] {
+    getList(): IBullet[] {
         return this.bulletList;
     }
 
-    removeBullet(bullet: Bullet) {
+    removeBullet(bullet: IBullet) {
         this.pooler.release(BulletType.LASER, bullet);
-        this.stage.removeChild(bullet.getView());
+        this.stage.removeChild(bullet.getChildView());
         let index = this.bulletList.indexOf(bullet);
         this.bulletList.splice(index, 1);
     }
 
-    createBulletAt(x: number, y: number, type: BulletType) {
-        let bullet: Bullet = this.pooler.getNext(type) as Bullet;
-        bullet.setPosition(x, y);
-        this.stage.addChild(bullet.getView());
+    createBulletAt(x: number, y: number, type: BulletType): IBullet {
+        let bullet: IBullet = this.pooler.getNext(type) as IBullet;
+        bullet.x = x;
+        bullet.y = y;
+        this.stage.addChild(bullet.getChildView());
         this.bulletList.push(bullet);
+        return bullet;
     }
 
     removeAll() {
@@ -41,7 +44,7 @@ class BulletManager {
         for (let i = 0; i < bulletList.length; i++) {
             const bullet = bulletList[i];
             bullet.update(deltaTime);
-            if (bullet.getView().y < -bullet.getView().height) {
+            if (bullet.y < -bullet.height) {
                 this.removeBullet(bulletList[i]);
                 i--;
             }
