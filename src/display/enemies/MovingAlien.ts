@@ -1,12 +1,13 @@
 import { Alien } from "./Alien";
+import { IEngineView } from "../IDisplayView";
 
 
 
 class MovingAlien extends Alien {
 
     protected xMove: number = 0;
-    constructor() {
-        super();
+    constructor(view: IEngineView) {
+        super(view);
         this.xMove = Math.random() * Math.random();
     }
 

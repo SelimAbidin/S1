@@ -2,6 +2,7 @@ import { Alien } from "../display/enemies/Alien";
 import { IEnemy } from "../display/enemies/IEnemy";
 import { MovingAlien } from "../display/enemies/MovingAlien";
 import { ArmedAlien } from "../display/enemies/ArmedAlien";
+import { Texture, Sprite } from "pixi.js";
 
 
 enum EnemyTypes {
@@ -10,19 +11,44 @@ enum EnemyTypes {
     ARMED_ALIEN = 'ArmedAlien',
 }
 
+let TEXTURES: any = {}
+
+function getTexture(str: string): any {
+
+    if (TEXTURES[str] === undefined) {
+        TEXTURES[str] = Texture.from(str);
+    }
+    return TEXTURES[str];
+}
+
+
 
 class EnemyFactory {
 
     public createEnemyByType(type: EnemyTypes): IEnemy | null {
 
         if (type === EnemyTypes.ALIEN) {
-            let enemy = new Alien();
+
+            const texture = getTexture("alien");
+            let view = new Sprite(texture);
+            view.anchor.set(0.5);
+            view.zIndex = 10;
+            let enemy = new Alien(view);
             return enemy;
         } else if (type === EnemyTypes.MOVING_ALIEN) {
-            let enemy = new MovingAlien();
+
+            const texture = getTexture("alien");
+            let view = new Sprite(texture);
+            view.anchor.set(0.5);
+            view.zIndex = 10;
+            let enemy = new MovingAlien(view);
             return enemy;
         } else if (type === EnemyTypes.ARMED_ALIEN) {
-            let enemy = new ArmedAlien();
+            const texture = getTexture("alien");
+            let view = new Sprite(texture);
+            view.anchor.set(0.5);
+            view.zIndex = 10;
+            let enemy = new ArmedAlien(view);
             return enemy;
         }
         return null;

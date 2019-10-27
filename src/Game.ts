@@ -218,7 +218,7 @@ class Game {
         hero.y = this.pixiApp.screen.height + hero.height;
         hero.width *= 0.5;
         hero.height *= 0.5;
-        this.stage.addChild(hero.getChildView());
+        this.stage.addChild(hero.getChildView() as any);
         this.hero = hero;
 
 

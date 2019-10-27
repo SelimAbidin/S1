@@ -1,8 +1,7 @@
 import { MovingAlien } from "./MovingAlien";
 import { IArmedEnemy } from "./IEnemy";
 import { BulletType } from "../../factories/BulletFactory";
-
-
+import { IEngineView } from "../IDisplayView";
 
 class ArmedAlien extends MovingAlien implements IArmedEnemy {
 
@@ -10,8 +9,8 @@ class ArmedAlien extends MovingAlien implements IArmedEnemy {
     private fireTime: number = 300;
     public needsFire: boolean = false;
     public bulletType: BulletType;
-    constructor() {
-        super();
+    constructor(view: IEngineView) {
+        super(view);
         this.bulletType = BulletType.ALIEN_BULLET;
         this.fireCount = Math.random() * this.fireTime;
     }

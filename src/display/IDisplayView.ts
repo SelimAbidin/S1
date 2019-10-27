@@ -11,6 +11,8 @@ interface IDisplayView {
 
 interface IAnimatable {
     gotoAndStop(v: number): void;
+    onComplete?: Function;
+    gotoAndPlay(frame: number): void;
 }
 
 interface IEngineView {
