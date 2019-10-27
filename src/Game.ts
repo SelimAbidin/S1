@@ -181,6 +181,7 @@ class Game {
         this.hero.y = this.pixiApp.screen.height + this.hero.height;
         this.stage.buttonMode = true;
         this.enemyManager.removeAll();
+        this.bulletManager.removeAll();
         this.gameModel.reset();
     }
 
