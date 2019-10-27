@@ -1,18 +1,16 @@
 import { Sprite, Texture, Point } from "pixi.js";
 import { IBullet } from "./IBullet";
+import { IEngineView } from "../IDisplayView";
 
 
 class Bullet implements IBullet {
 
     public hitEnemy: boolean = true;
-    protected view: any;
+
     protected speed: number = 20;
     protected velocity: Point = new Point(0, -1);
-    constructor() {
-        const texture = Texture.from("bullet");
-        this.view = new Sprite(texture);
-        this.view.anchor.set(0.5);
-        this.view.zIndex = 0;
+    constructor(protected view: IEngineView) {
+
     }
 
     setVelocity(x: number, y: number): void {

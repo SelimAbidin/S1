@@ -1,10 +1,11 @@
 import { Bullet } from "./Bullet";
+import { IEngineView } from "../IDisplayView";
 
 
 class AlienBullet extends Bullet {
 
-    constructor() {
-        super();
+    constructor(view: IEngineView) {
+        super(view);
         this.speed = 10;
     }
 

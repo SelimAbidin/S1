@@ -13,4 +13,13 @@ interface IAnimatable {
     gotoAndStop(v: number): void;
 }
 
-export { IDisplayView, IAnimatable }
+
+interface IEngineView {
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+}
+
+
+export { IDisplayView, IEngineView, IAnimatable }
