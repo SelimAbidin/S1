@@ -19,29 +19,25 @@ class AssetsProvider extends EventEmitter {
         this.loader.load();
     }
 
-    onStart = (loader: Loader, resource: LoaderResource) => {
-        console.log("onStart");
+    onStart = (_loader: Loader, _resource: LoaderResource) => {
         const event: AssetsProviderStatusEvent = {
             status: AssetsProviderStatus.START
         }
         this.emit(AssetsProviderEventType.START, event);
     }
 
-    onComplete = (loader: Loader, resource: LoaderResource) => {
-        console.log("COMPLETE");
+    onComplete = (_loader: Loader, _resource: LoaderResource) => {
         const event: AssetsProviderStatusEvent = {
             status: AssetsProviderStatus.COMPLETE
         }
         this.emit(AssetsProviderEventType.COMPLETE, event);
     }
 
-    onError = (loader: Loader, resource: LoaderResource) => {
-        console.log("onError");
+    onError = (_loader: Loader, _resource: LoaderResource) => {
         this.emit(AssetsProviderEventType.ERROR);
     }
 
-    onProgress = (loader: Loader, resource: LoaderResource) => {
-        console.log("onProgress");
+    onProgress = (loader: Loader, _resource: LoaderResource) => {
         const event: AssetsProviderProgressEvent = {
             progress: loader.progress,
             max: 100,

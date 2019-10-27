@@ -3,9 +3,6 @@
 class Pooler {
     private deadPool: any = {};
     private inUsePool: any = {};
-    constructor() {
-
-    }
 
     add(key: string, object: any) {
         let pool = this.deadPool;

@@ -1,32 +1,55 @@
-import { Application, Texture, AnimatedSprite } from "pixi.js";
+import { Texture, AnimatedSprite } from "pixi.js";
+import { IDisplayView, IAnimatable } from "./display/IDisplayView";
+import { BulletType } from "./factories/BulletFactory";
 
 class HeroPlane {
 
-    private view: any;
     private nextX: number = 0;
     private nextY: number = 0;
     public allowFire: boolean = false;
-    constructor() {
+    private bullet: BulletType = BulletType.LASER;
+    constructor(private view: any) {
 
-        const frames = [];
-        for (let i = 0; i < 30; i++) {
-            const val = i < 10 ? `0${i}` : i;
-            frames.push(Texture.from(`rollSequence00${val}.png`));
-        }
+    }
 
-        const anim = new AnimatedSprite(frames);
-        anim.animationSpeed = 0.5;
-        anim.anchor.set(0.5);
-        anim.zIndex = 100;
-        // anim.play();
-        // anim.gotoAndStop(0)
-        // (window as any).anim = anim;
-        this.view = anim
+    set x(x: number) {
+        this.view.x = x;
+    }
 
+    set y(y: number) {
+        this.view.y = y;
+    }
+
+    get y(): number {
+        return this.view.y;
+    }
+
+    get x(): number {
+        return this.view.x;
     }
 
     get height(): number {
         return this.view.height;
+    }
+
+    set height(height: number) {
+        this.view.height = height;
+    }
+
+    get width(): number {
+        return this.view.width;
+    }
+
+    set width(width: number) {
+        this.view.width = width;
+    }
+
+    // get height(): number {
+    //     return this.view.height;
+    // }
+
+    get bulletType(): BulletType {
+        return this.bullet;
     }
 
     setPosition(x: number, y: number) {
@@ -34,7 +57,7 @@ class HeroPlane {
         this.nextY = y;
     }
 
-    getView() {
+    getChildView(): any {
         return this.view
     }
 
@@ -45,7 +68,7 @@ class HeroPlane {
 
     fireCounter: number = 0;
     needsFire: boolean = true;
-    update(deltaTime: number) {
+    update(deltaTime: number): void {
 
         this.fireCounter += deltaTime;
         if (this.fireCounter > 5) {
