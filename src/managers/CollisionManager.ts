@@ -1,6 +1,5 @@
 import { EnemyManager } from "./EnemyManager";
 import { BulletManager } from "./BulletManager";
-import { Bullet } from "../display/bullets/Bullet";
 import { HeroPlane } from "../display/HeroPlane";
 import { GameModel } from "../GameModel";
 import { IEnemy } from "../display/enemies/IEnemy";
@@ -49,14 +48,13 @@ class CollisionManager {
                     break;
                 }
 
-
                 for (let j = 0; j < bulletList.length; j++) {
                     const bullet = bulletList[j];
                     if (bullet.hitEnemy) {
                         let dist = distance(bullet.x, bullet.y, enemy.x, enemy.y);
                         if (dist < (bullet.width + enemy.width) / 2) {
                             this.bulletManager.removeBullet(bullet);
-                            this.enemyManager.removeEnemy(enemy);
+                            this.enemyManager.explodeEnemy(enemy);
                         }
                     }
 

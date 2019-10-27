@@ -29,6 +29,11 @@ class EnemyManager {
         let index = this.enemyList.indexOf(enemy);
         this.enemyList.splice(index, 1);
         this.gameModel.addToScore(10);
+
+    }
+
+    explodeEnemy(enemy: IEnemy) {
+        this.removeEnemy(enemy);
         this.effectManager.createEffectAt(enemy.x, enemy.y, EffectType.EXPLOTION);
     }
 
@@ -39,6 +44,12 @@ class EnemyManager {
     removeAll() {
         while (this.enemyList.length > 0) {
             this.removeEnemy(this.enemyList[0]);
+        }
+    }
+
+    explodeAll() {
+        while (this.enemyList.length > 0) {
+            this.explodeEnemy(this.enemyList[0]);
         }
     }
 

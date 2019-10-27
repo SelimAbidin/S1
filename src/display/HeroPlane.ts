@@ -4,14 +4,15 @@ import { Object2D } from "./Object2D";
 
 class HeroPlane extends Object2D {
 
-    private nextX: number = 0;
-    private nextY: number = 0;
+    protected nextX: number = 0;
+    protected nextY: number = 0;
     public allowFire: boolean = false;
     private bullet: BulletType = BulletType.LASER;
+    protected fireCounter: number = 0;
+    public needsFire: boolean = true;
     constructor(view: IEngineView & IAnimatable) {
         super(view as IEngineView);
     }
-
 
     get bulletType(): BulletType {
         return this.bullet;
@@ -27,8 +28,6 @@ class HeroPlane extends Object2D {
         this.fireCounter = 0;
     }
 
-    fireCounter: number = 0;
-    needsFire: boolean = true;
     update(deltaTime: number): void {
 
         this.fireCounter += deltaTime;

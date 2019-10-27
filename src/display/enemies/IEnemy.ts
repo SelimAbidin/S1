@@ -1,5 +1,6 @@
 import { IDisplayView } from "../IDisplayView"
 import { BulletType } from "../../factories/BulletFactory";
+import { EnemyTypes } from "../../factories/EnemyFactory";
 
 
 
@@ -8,6 +9,7 @@ import { BulletType } from "../../factories/BulletFactory";
 interface IBaseEnemy {
     update(deltaTime: number): void;
     speed: number;
+    type: EnemyTypes
 }
 
 interface IArmedEnemy {

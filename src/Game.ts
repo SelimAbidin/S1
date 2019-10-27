@@ -126,7 +126,7 @@ class Game {
             this.hero.x = this.pixiApp.screen.width / 2;
             this.hero.y = this.pixiApp.screen.height + this.hero.height;
             this.bulletManager.removeAll();
-            this.enemyManager.removeAll();
+            this.enemyManager.explodeAll();
         })
 
         this.gameModel.on(GameModelEvent.HIGH_SCORE_CHANGE, (event: { score: number }) => {
@@ -180,6 +180,7 @@ class Game {
         this.hero.x = this.pixiApp.screen.width / 2;
         this.hero.y = this.pixiApp.screen.height + this.hero.height;
         this.stage.buttonMode = true;
+        this.enemyManager.removeAll();
         this.gameModel.reset();
     }
 

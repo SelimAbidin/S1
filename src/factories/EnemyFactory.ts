@@ -34,6 +34,7 @@ class EnemyFactory {
             view.anchor.set(0.5);
             view.zIndex = 10;
             let enemy = new Alien(view);
+            enemy.type = EnemyTypes.ALIEN;
             return enemy;
         } else if (type === EnemyTypes.MOVING_ALIEN) {
 
@@ -42,6 +43,7 @@ class EnemyFactory {
             view.anchor.set(0.5);
             view.zIndex = 10;
             let enemy = new MovingAlien(view);
+            enemy.type = EnemyTypes.MOVING_ALIEN;
             return enemy;
         } else if (type === EnemyTypes.ARMED_ALIEN) {
             const texture = getTexture("alien");
@@ -49,6 +51,7 @@ class EnemyFactory {
             view.anchor.set(0.5);
             view.zIndex = 10;
             let enemy = new ArmedAlien(view);
+            enemy.type = EnemyTypes.ARMED_ALIEN;
             return enemy;
         }
         return null;
