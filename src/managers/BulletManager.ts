@@ -1,4 +1,4 @@
-import { Bullet } from "../Bullet";
+import { Bullet } from "../display/bullets/Bullet";
 import { Pooler } from "../utils/Pooler";
 import { BulletType } from "../factories/BulletFactory";
 import { Container } from "pixi.js";

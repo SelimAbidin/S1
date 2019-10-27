@@ -1,6 +1,6 @@
 import { EnemyManager } from "./EnemyManager";
 import { BulletManager } from "./BulletManager";
-import { Bullet } from "../Bullet";
+import { Bullet } from "../display/bullets/Bullet";
 import { HeroPlane } from "../display/HeroPlane";
 import { GameModel } from "../GameModel";
 import { IEnemy } from "../display/enemies/IEnemy";

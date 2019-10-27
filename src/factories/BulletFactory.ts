@@ -5,8 +5,6 @@ enum BulletType {
 }
 
 class BulletFactory {
-
-
     constructor() {
 
     }
@@ -20,10 +18,6 @@ class BulletFactory {
 
         return null;
     }
-
-
-
-
 }
 
 export { BulletFactory, BulletType }

@@ -5,8 +5,10 @@ import { IDisplayView } from "../IDisplayView";
 
 class Alien implements IEnemy, IDisplayView {
 
-    private view: any;
+    protected view: any;
+    speed: number = 3;
     constructor() {
+        this.speed += Math.random()
         const texture = Texture.from("alien");
         this.view = new Sprite(texture);
         this.view.anchor.set(0.5);
@@ -55,7 +57,7 @@ class Alien implements IEnemy, IDisplayView {
     }
 
     update(deltaTime: number): void {
-        this.view.y += 1 * deltaTime;
+        this.view.y += this.speed * deltaTime;
     }
 }
 

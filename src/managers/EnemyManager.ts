@@ -45,7 +45,10 @@ class EnemyManager {
         const enemyList = this.enemyList;
         this.enemyCounter += deltaTime;
         if (this.enemyCounter > 10) {
-            this.createEnemyAt(Math.random() * 800, -100, EnemyTypes.ALIEN);
+            let types = Object.keys(EnemyTypes);
+            let values = Object.values(EnemyTypes);
+            let enemyIndex = Math.floor(Math.random() * types.length);
+            this.createEnemyAt(Math.random() * 800, -100, values[enemyIndex] as EnemyTypes);
             this.enemyCounter = 0;
         }
 
