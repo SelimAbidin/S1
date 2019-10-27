@@ -1,5 +1,4 @@
-import { TilingSprite, Texture } from "pixi.js";
-
+import { Texture, TilingSprite } from "pixi.js";
 
 export class Stars {
 
@@ -18,12 +17,12 @@ export class Stars {
         return this.view;
     }
 
-    setMoveSpeed(x: number, y: number): void {
+    public setMoveSpeed(x: number, y: number): void {
         this.speedX = x;
         this.speedY = y;
     }
 
-    update(deltaTime: number): void {
+    public update(deltaTime: number): void {
         this.view.tilePosition.y += this.speedY * deltaTime;
         this.view.tilePosition.x += this.speedX * deltaTime;
     }

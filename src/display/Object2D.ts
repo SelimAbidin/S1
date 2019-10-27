@@ -1,6 +1,5 @@
 import { IEngineView } from "./IDisplayView";
 
-
 class Object2D {
 
     constructor(protected view: IEngineView) { }
@@ -37,10 +36,10 @@ class Object2D {
         return this.view.height;
     }
 
-    getChildView() {
+    public getChildView() {
         return this.view;
     }
 
 }
 
-export { Object2D }
+export { Object2D };

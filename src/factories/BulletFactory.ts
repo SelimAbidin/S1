@@ -1,11 +1,10 @@
+import { Sprite, Texture } from "pixi.js";
+import { AlienBullet } from "../display/bullets/AlienBullet";
 import { Bullet } from "../display/bullets/Bullet";
 import { IBullet } from "../display/bullets/IBullet";
-import { AlienBullet } from "../display/bullets/AlienBullet";
-import { Texture, Sprite } from "pixi.js";
 import { IEngineView } from "../display/IDisplayView";
 
-
-let TEXTURES: any = {}
+const TEXTURES: any = {};
 
 function getTexture(str: string): any {
 
@@ -15,36 +14,32 @@ function getTexture(str: string): any {
     return TEXTURES[str];
 }
 
-
 enum BulletType {
-    LASER = 'LASER',
-    ALIEN_BULLET = 'alienBullet'
+    LASER = "LASER",
+    ALIEN_BULLET = "alienBullet",
 }
 
 class BulletFactory {
-    constructor() {
-
-    }
 
     public createBulletByType(type: BulletType): IBullet | null {
 
         if (type === BulletType.LASER) {
             const texture = getTexture("bullet");
-            let view = new Sprite(texture);
+            const view = new Sprite(texture);
             view.anchor.set(0.5);
             view.zIndex = 0;
 
-            let bullet = new Bullet(view as IEngineView);
+            const bullet = new Bullet(view as IEngineView);
             bullet.hitEnemy = true;
             return bullet;
         } else if (type === BulletType.ALIEN_BULLET) {
 
             const texture = getTexture("alien_bullet");
-            let view = new Sprite(texture);
+            const view = new Sprite(texture);
             view.anchor.set(0.5);
             view.zIndex = 0;
 
-            let bullet = new AlienBullet(view);
+            const bullet = new AlienBullet(view);
             bullet.hitEnemy = false;
             return bullet;
         }
@@ -53,4 +48,4 @@ class BulletFactory {
     }
 }
 
-export { BulletFactory, BulletType }
+export { BulletFactory, BulletType };

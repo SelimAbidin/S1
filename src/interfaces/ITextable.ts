@@ -4,4 +4,4 @@ interface ITextable {
     setStyle(text: any): void;
 }
 
-export { ITextable }
+export { ITextable };

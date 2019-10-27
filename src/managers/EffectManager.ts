@@ -1,9 +1,8 @@
+import { Container, DisplayObject } from "pixi.js";
 import { Explotion } from "../display/effects/Explotion";
 import { EffectType } from "../factories/EffectFactory";
-import { Pooler } from "../utils/Pooler";
-import { Container, DisplayObject } from "pixi.js";
 import { AssetsProvider } from "../utils/AssetsProvider";
-
+import { Pooler } from "../utils/Pooler";
 
 class EffectManager {
     private effectList: Explotion[] = [];
@@ -11,8 +10,8 @@ class EffectManager {
 
     }
 
-    createEffectAt(x: number, y: number, type: EffectType) {
-        let effect: Explotion = this.pooler.getNext(type) as Explotion;
+    public createEffectAt(x: number, y: number, type: EffectType) {
+        const effect: Explotion = this.pooler.getNext(type) as Explotion;
         effect.x = x;
         effect.y = y;
         this.stage.addChild(effect.getChildView() as any);
@@ -21,14 +20,14 @@ class EffectManager {
         this.assetProvider.playSound("explosionSound");
     }
 
-    removeEffect(explotion: Explotion) {
+    public removeEffect(explotion: Explotion) {
         this.stage.removeChild(explotion.getChildView() as any);
         this.pooler.release(EffectType.EXPLOTION, explotion);
-        let index = this.effectList.indexOf(explotion);
+        const index = this.effectList.indexOf(explotion);
         this.effectList.splice(index, 1);
     }
 
-    update(_deltaTime: number) {
+    public update(_deltaTime: number) {
 
         const effectList = this.effectList;
         for (let i = 0; i < effectList.length; i++) {
@@ -41,4 +40,4 @@ class EffectManager {
     }
 }
 
-export { EffectManager }
+export { EffectManager };

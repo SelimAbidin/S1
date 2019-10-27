@@ -1,17 +1,16 @@
+import { Sprite, Texture } from "pixi.js";
 import { Alien } from "../display/enemies/Alien";
+import { ArmedAlien } from "../display/enemies/ArmedAlien";
 import { IEnemy } from "../display/enemies/IEnemy";
 import { MovingAlien } from "../display/enemies/MovingAlien";
-import { ArmedAlien } from "../display/enemies/ArmedAlien";
-import { Texture, Sprite } from "pixi.js";
-
 
 enum EnemyTypes {
-    ALIEN = 'alien',
-    MOVING_ALIEN = 'movingAlien',
-    ARMED_ALIEN = 'ArmedAlien',
+    ALIEN = "alien",
+    MOVING_ALIEN = "movingAlien",
+    ARMED_ALIEN = "ArmedAlien",
 }
 
-let TEXTURES: any = {}
+const TEXTURES: any = {};
 
 function getTexture(str: string): any {
 
@@ -21,8 +20,6 @@ function getTexture(str: string): any {
     return TEXTURES[str];
 }
 
-
-
 class EnemyFactory {
 
     public createEnemyByType(type: EnemyTypes): IEnemy | null {
@@ -30,27 +27,27 @@ class EnemyFactory {
         if (type === EnemyTypes.ALIEN) {
 
             const texture = getTexture("alien");
-            let view = new Sprite(texture);
+            const view = new Sprite(texture);
             view.anchor.set(0.5);
             view.zIndex = 10;
-            let enemy = new Alien(view);
+            const enemy = new Alien(view);
             enemy.type = EnemyTypes.ALIEN;
             return enemy;
         } else if (type === EnemyTypes.MOVING_ALIEN) {
 
             const texture = getTexture("alien");
-            let view = new Sprite(texture);
+            const view = new Sprite(texture);
             view.anchor.set(0.5);
             view.zIndex = 10;
-            let enemy = new MovingAlien(view);
+            const enemy = new MovingAlien(view);
             enemy.type = EnemyTypes.MOVING_ALIEN;
             return enemy;
         } else if (type === EnemyTypes.ARMED_ALIEN) {
             const texture = getTexture("alien");
-            let view = new Sprite(texture);
+            const view = new Sprite(texture);
             view.anchor.set(0.5);
             view.zIndex = 10;
-            let enemy = new ArmedAlien(view);
+            const enemy = new ArmedAlien(view);
             enemy.type = EnemyTypes.ARMED_ALIEN;
             return enemy;
         }
@@ -59,4 +56,4 @@ class EnemyFactory {
 
 }
 
-export { EnemyFactory, EnemyTypes }
+export { EnemyFactory, EnemyTypes };

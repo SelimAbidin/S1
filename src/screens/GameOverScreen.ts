@@ -1,25 +1,24 @@
-import { Rectangle, TextStyle, Text } from "pixi.js";
-
+import { Rectangle, Text, TextStyle } from "pixi.js";
 
 class GameOverScreen {
 
     public view: any;
     constructor(rect: Rectangle) {
         const style = new TextStyle({
-            fontFamily: 'Arial',
-            fontSize: 60,
-            fontWeight: 'bold',
-            fill: ['#8184b3', '#070140'],
-            stroke: '#070140',
-            strokeThickness: 5,
             dropShadow: true,
-            dropShadowColor: '#ffffff',
-            dropShadowBlur: 4,
             dropShadowAngle: 0,
+            dropShadowBlur: 4,
+            dropShadowColor: "#ffffff",
             dropShadowDistance: 0,
+            fill: ["#8184b3", "#070140"],
+            fontFamily: "Arial",
+            fontSize: 60,
+            fontWeight: "bold",
+            stroke: "#070140",
+            strokeThickness: 5,
         });
 
-        let startText = new Text("Game Over", style);
+        const startText = new Text("Game Over", style);
         startText.x = (rect.width - startText.width) / 2;
         startText.y = (rect.height - startText.height) / 2;
         startText.zIndex = 100;
@@ -35,4 +34,4 @@ class GameOverScreen {
 
 }
 
-export { GameOverScreen }
+export { GameOverScreen };

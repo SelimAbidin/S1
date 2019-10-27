@@ -1,7 +1,4 @@
 
+type IText = new(property: string, style: any) => IText;
 
-interface IText {
-    new(property: string, style: any): IText;
-}
-
-export { IText }
+export { IText };

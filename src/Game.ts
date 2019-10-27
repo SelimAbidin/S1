@@ -104,53 +104,8 @@ class Game {
             }
         }
 
-        const app = new Application({
-            view: this.canvasElement,
-            width: this.gameWidth,
-            height: this.gameHeight,
-            resolution: window.devicePixelRatio || 1,
-        });
-        app.stage.sortableChildren = true;
-        this.pixiApp = app;
-        this.stage = app.stage;
-
-        this.gameModel = new GameModel();
-
-        this.bulletManager = new BulletManager(this.stage, this.pooler);
-
-        this.effectManager = new EffectManager(this.pooler, this.provider, this.stage);
-        this.enemyManager = new EnemyManager(this.gameModel, this.bulletManager, this.effectManager, this.stage, this.pooler);
-
-        this.stage.on('mousemove', this.onMouseMove);
-        this.stage.on('mousedown', this.onMouseDown);
-        document.addEventListener('mouseup', this.onMouseUp);
 
         this.install();
-
-        this.collisionManager = new CollisionManager(this.gameModel, this.enemyManager, this.bulletManager, this.hero);
-
-        this.gameModel.on(GameModelEvent.LIFE_CHANGE, (event: { life: number }) => {
-
-            if (event.life < 3) {
-                this.effectManager.createEffectAt(this.hero.x, this.hero.y, EffectType.EXPLOTION);
-                this.hero.x = this.pixiApp.screen.width / 2;
-                this.hero.y = this.pixiApp.screen.height + this.hero.height;
-                this.bulletManager.removeAll();
-                this.enemyManager.explodeAll();
-                this.provider.playSound("explosionSound");
-            }
-
-        })
-
-        this.gameModel.on(GameModelEvent.HIGH_SCORE_CHANGE, (event: { score: number }) => {
-            document.cookie = event.score.toString();
-        })
-
-        this.gameModel.on(GameModelEvent.GAME_OVER, (_event: { life: number }) => {
-            this.setGameState(GameStates.GAME_OVER);
-        })
-
-        app.ticker.add(this.onFrame)
 
         this.stage.interactive = true;
 
@@ -187,7 +142,6 @@ class Game {
     resetGame() {
         this.hero.x = this.pixiApp.screen.width / 2;
         this.hero.y = this.pixiApp.screen.height + this.hero.height;
-        this.stage.buttonMode = true;
         this.enemyManager.removeAll();
         this.bulletManager.removeAll();
         this.gameModel.reset();
@@ -207,6 +161,43 @@ class Game {
     }
 
     install() {
+
+        const app = new Application({
+            view: this.canvasElement,
+            width: this.gameWidth,
+            height: this.gameHeight,
+            resolution: window.devicePixelRatio || 1,
+        });
+        app.stage.sortableChildren = true;
+        this.pixiApp = app;
+        this.stage = app.stage;
+
+        this.stage.on('mousemove', this.onMouseMove);
+        this.stage.on('mousedown', this.onMouseDown);
+        document.addEventListener('mouseup', this.onMouseUp);
+
+        this.gameModel = new GameModel();
+        this.gameModel.on(GameModelEvent.LIFE_CHANGE, (event: { life: number }) => {
+
+            if (event.life < 3) {
+                this.effectManager.createEffectAt(this.hero.x, this.hero.y, EffectType.EXPLOTION);
+                this.hero.x = this.pixiApp.screen.width / 2;
+                this.hero.y = this.pixiApp.screen.height + this.hero.height;
+                this.bulletManager.removeAll();
+                this.enemyManager.explodeAll();
+                this.provider.playSound("explosionSound");
+            }
+        })
+
+        this.gameModel.on(GameModelEvent.HIGH_SCORE_CHANGE, (event: { score: number }) => {
+            document.cookie = event.score.toString();
+        })
+
+        this.gameModel.on(GameModelEvent.GAME_OVER, (_event: { life: number }) => {
+            this.setGameState(GameStates.GAME_OVER);
+        })
+
+
         const texture = Texture.from("background");
         this.stars = new Stars(texture, this.gameWidth, this.gameHeight);
         this.stars.setMoveSpeed(0, 1);
@@ -246,6 +237,13 @@ class Game {
         this.gameOverScreen = gameOverScreen;
         this.stage.addChild(gameOverScreen.view);
 
+        this.bulletManager = new BulletManager(this.stage, this.pixiApp.screen, this.pooler);
+        this.effectManager = new EffectManager(this.pooler, this.provider, this.stage);
+        this.enemyManager = new EnemyManager(this.gameModel, this.bulletManager, this.effectManager, this.stage, this.pooler);
+
+        this.collisionManager = new CollisionManager(this.gameModel, this.enemyManager, this.bulletManager, this.hero);
+
+        app.ticker.add(this.onFrame)
     }
 
     onFrame(deltaTime: number) {

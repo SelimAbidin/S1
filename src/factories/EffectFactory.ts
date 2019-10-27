@@ -1,8 +1,8 @@
-import { Explotion } from "../display/effects/Explotion";
 import { AnimatedSprite, Texture } from "pixi.js";
+import { Explotion } from "../display/effects/Explotion";
 
 enum EffectType {
-    EXPLOTION = 'EXPLOTION'
+    EXPLOTION = "EXPLOTION",
 }
 
 const frames: Texture[] = [];
@@ -16,20 +16,19 @@ function getExlotionFrames(): Texture[] {
     return frames;
 }
 
-
 class EffectFactory {
 
     public createEffectByType(type: EffectType) {
 
         if (type === EffectType.EXPLOTION) {
 
-            let frames = getExlotionFrames();
-            const anim = new AnimatedSprite(frames);
+            const explosionFrames = getExlotionFrames();
+            const anim = new AnimatedSprite(explosionFrames);
             anim.animationSpeed = 0.5;
             anim.anchor.set(0.5);
             anim.zIndex = 100;
             anim.loop = false;
-            anim.gotoAndStop(0)
+            anim.gotoAndStop(0);
             const explotion = new Explotion(anim);
             return explotion;
         }
@@ -39,4 +38,4 @@ class EffectFactory {
 
 }
 
-export { EffectFactory, EffectType }
+export { EffectFactory, EffectType };

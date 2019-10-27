@@ -1,25 +1,24 @@
 
-
 class Pooler {
     private deadPool: any = {};
     private inUsePool: any = {};
 
-    add(key: string, object: any) {
-        let pool = this.deadPool;
+    public add(key: string, object: any) {
+        const pool = this.deadPool;
         if (!Array.isArray(pool[key])) {
             pool[key] = [];
         }
         pool[key].push(object);
     }
 
-    release(key: string, object: any) {
+    public release(key: string, object: any) {
 
         const pool = this.inUsePool[key];
         if (Array.isArray(pool)) {
-            const index = pool.indexOf(object)
+            const index = pool.indexOf(object);
             if (index > -1) {
 
-                let deadPool = this.deadPool;
+                const deadPool = this.deadPool;
                 if (!Array.isArray(deadPool[key])) {
                     deadPool[key] = [];
                 }
@@ -29,27 +28,26 @@ class Pooler {
 
     }
 
-    getNext(key: string): any | null {
-        let pool = this.deadPool;
+    public getNext(key: string): any | null {
+        const pool = this.deadPool;
         if (Array.isArray(pool[key]) && pool[key].length > 0) {
 
             if (!Array.isArray(this.inUsePool[key])) {
-                this.inUsePool[key] = []
+                this.inUsePool[key] = [];
             }
 
-            let value = pool[key].shift()
+            const value = pool[key].shift();
             this.inUsePool[key].push(value);
             return value;
         }
         return null;
     }
 
-    update() {
+    public update() {
 
         // let alienInUse = this.inUsePool["alien"] && this.inUsePool["alien"].length
         // let alienDead = this.deadPool["alien"] && this.deadPool["alien"].length
         // console.log("Alien In Use :", alienInUse, "Alien Dead:", alienDead, "T:", (alienDead + alienInUse));
-
 
         // let alienInUse = this.inUsePool["bullet"] && this.inUsePool["bullet"].length
         // let alienDead = this.deadPool["bullet"] && this.deadPool["bullet"].length
@@ -58,4 +56,4 @@ class Pooler {
     }
 }
 
-export { Pooler }
+export { Pooler };

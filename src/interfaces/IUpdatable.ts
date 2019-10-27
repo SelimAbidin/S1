@@ -3,4 +3,4 @@ interface IUpdatable {
     update(deltaTime: number): void;
 }
 
-export { IUpdatable }
+export { IUpdatable };

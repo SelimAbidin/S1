@@ -1,5 +1,4 @@
 
-
 interface IDisplayView {
     width: number;
     height: number;
@@ -8,10 +7,9 @@ interface IDisplayView {
     getChildView(): any;
 }
 
-
 interface IAnimatable {
+    onComplete?: () => void;
     gotoAndStop(v: number): void;
-    onComplete?: Function;
     gotoAndPlay(frame: number): void;
 }
 
@@ -22,4 +20,4 @@ interface IEngineView {
     y: number;
 }
 
-export { IDisplayView, IEngineView, IAnimatable }
+export { IDisplayView, IEngineView, IAnimatable };
