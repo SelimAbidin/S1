@@ -1,6 +1,28 @@
 import { utils, Loader, LoaderResource } from 'pixi.js'
 let EventEmitter = utils.EventEmitter;
-import { AssetsProviderEventType, AssetsProviderProgressEvent, AssetsProviderStatusEvent, AssetsProviderStatus } from './events/AssetsProviderEvent'
+
+enum AssetsProviderEventType {
+    COMPLETE = 'onComplete',
+    START = 'onStart',
+    PROGRESS = 'onProgress',
+    ERROR = 'onError'
+}
+
+type AssetsProviderProgressEvent = {
+    progress: number,
+    min: number,
+    max: number,
+}
+
+enum AssetsProviderStatus {
+    START = 'START',
+    COMPLETE = 'COMPLETE',
+}
+
+type AssetsProviderStatusEvent = {
+    status: AssetsProviderStatus
+}
+
 
 
 class AssetsProvider extends EventEmitter {
@@ -73,4 +95,4 @@ class AssetsProvider extends EventEmitter {
 
 }
 
-export { AssetsProvider }
+export { AssetsProvider, AssetsProviderEventType, AssetsProviderProgressEvent }

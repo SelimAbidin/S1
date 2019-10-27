@@ -1,4 +1,4 @@
-import { Explotion } from "../Explotion";
+import { Explotion } from "../display/effects/Explotion";
 import { EffectType } from "../factories/EffectFactory";
 import { Pooler } from "../utils/Pooler";
 import { Container } from "pixi.js";

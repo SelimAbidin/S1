@@ -1,6 +1,6 @@
 import { Texture, AnimatedSprite } from "pixi.js";
-import { IDisplayView, IAnimatable } from "./display/IDisplayView";
-import { BulletType } from "./factories/BulletFactory";
+import { IDisplayView, IAnimatable } from "./IDisplayView";
+import { BulletType } from "../factories/BulletFactory";
 
 class HeroPlane {
 

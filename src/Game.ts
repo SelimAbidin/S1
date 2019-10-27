@@ -1,13 +1,11 @@
-import { AssetsProvider } from "./AssetsProvider";
+import { AssetsProvider, AssetsProviderEventType, AssetsProviderProgressEvent } from "./utils/AssetsProvider";
 import { Loader, Application, Texture, Container, Point, AnimatedSprite } from "pixi.js";
-import { AssetsProviderEventType, AssetsProviderProgressEvent } from "./events/AssetsProviderEvent";
 import { Pooler } from "./utils/Pooler";
 import { EnemyFactory, EnemyTypes } from "./factories/EnemyFactory";
 import { BulletType, BulletFactory } from "./factories/BulletFactory";
 import { EffectFactory, EffectType } from "./factories/EffectFactory";
-import { Stars } from "./Stars"
-import { HeroPlane } from "./HeroPlane";
-import { IDisplayView, IAnimatable } from "./display/IDisplayView";
+import { Stars } from "./display/Stars"
+import { HeroPlane } from "./display/HeroPlane";
 import { BulletManager } from "./managers/BulletManager";
 import { EnemyManager } from "./managers/EnemyManager";
 import { CollisionManager } from "./managers/CollisionManager";
@@ -23,7 +21,6 @@ enum GameStates {
     PLAYING = "PLAYING",
     GAME_OVER = "GAME_OVER",
 }
-
 
 class Game {
 

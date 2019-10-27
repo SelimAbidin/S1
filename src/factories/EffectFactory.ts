@@ -1,14 +1,10 @@
-import { Explotion } from "../Explotion";
+import { Explotion } from "../display/effects/Explotion";
 
 enum EffectType {
     EXPLOTION = 'EXPLOTION'
 }
 
 class EffectFactory {
-
-    constructor() {
-
-    }
 
     public createEffectByType(type: EffectType) {
 
