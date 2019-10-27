@@ -96,7 +96,7 @@ class Game {
         }
 
         let effectTypes = Object.values(EffectType);
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 200; i++) {
             for (let j = 0; j < effectTypes.length; j++) {
                 let type: EffectType = effectTypes[j];
                 let effect = this.effectFactory.createEffectByType(type);
@@ -198,11 +198,6 @@ class Game {
         })
 
 
-        const texture = Texture.from("background");
-        this.stars = new Stars(texture, this.gameWidth, this.gameHeight);
-        this.stars.setMoveSpeed(0, 1);
-        this.stage.addChild(this.stars.getView());
-
 
         const frames = [];
         for (let i = 0; i < 30; i++) {
@@ -221,6 +216,13 @@ class Game {
         hero.height *= 0.5;
         this.stage.addChild(hero.getChildView() as any);
         this.hero = hero;
+
+
+        const texture = Texture.from("background");
+        this.stars = new Stars(texture, this.gameWidth, this.gameHeight);
+        this.stars.setMoveSpeed(0, 5);
+        this.stage.addChild(this.stars.getView());
+
 
 
         let rect = this.pixiApp.screen.clone();
@@ -275,13 +277,13 @@ class Game {
 
     private loadAssets(loader: Loader): AssetsProvider {
         let provider: AssetsProvider = new AssetsProvider(loader);
-        provider.loadTexture('mainship', 'assets/temp/ship.png');
+        // provider.loadTexture('mainship', 'assets/ship.png');
         provider.loadTexture('background', 'assets/background.jpg');
-        provider.loadTexture('fighter', 'assets/fighter.png');
-        provider.loadTexture('bullet', 'assets/temp/bullet.png');
+        // provider.loadTexture('fighter', 'assets/fighter.png');
+        provider.loadTexture('bullet', 'assets/bullet.png');
         provider.loadTexture('alien_bullet', 'assets/alienBullet.png');
         provider.loadTexture('heart', 'assets/heart.png');
-        provider.loadTexture('alien', 'assets/temp/alien.png');
+        provider.loadTexture('alien', 'assets/alien.png');
         provider.loadSound('laserSound', 'assets/sound/laser.mp3');
         provider.loadSound('explosionSound', 'assets/sound/explosion.mp3');
         provider.loadAnimJSON('assets/fighter.json');

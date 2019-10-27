@@ -15,7 +15,7 @@ class BulletManager {
     }
 
     public removeBullet(bullet: IBullet) {
-        this.pooler.release(BulletType.LASER, bullet);
+        this.pooler.release(bullet.type, bullet);
         this.stage.removeChild(bullet.getChildView());
         const index = this.bulletList.indexOf(bullet);
         this.bulletList.splice(index, 1);
@@ -41,7 +41,6 @@ class BulletManager {
         for (let i = 0; i < bulletList.length; i++) {
             const bullet = bulletList[i];
             bullet.update(deltaTime);
-
 
             if (bullet.y < -bullet.height || bullet.y > (this.rect.height + bullet.height)) {
                 this.removeBullet(bulletList[i]);

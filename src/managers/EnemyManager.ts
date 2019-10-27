@@ -21,7 +21,12 @@ class EnemyManager {
     }
 
     public createEnemyAt(x: number, y: number, type: EnemyTypes) {
+
+
         const enemy: IEnemy = this.pooler.getNext(type) as IEnemy;
+
+        // console.log("type : ", type, enemy.type);
+
         enemy.x = x;
         enemy.y = y;
         this.stage.addChild(enemy.getChildView());
@@ -29,7 +34,7 @@ class EnemyManager {
     }
 
     public removeEnemy(enemy: IEnemy) {
-        this.pooler.release(EnemyTypes.ALIEN, enemy);
+        this.pooler.release(enemy.type, enemy);
         this.stage.removeChild(enemy.getChildView());
         const index = this.enemyList.indexOf(enemy);
         this.enemyList.splice(index, 1);

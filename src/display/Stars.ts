@@ -9,8 +9,9 @@ export class Stars {
         this.view = new TilingSprite(
             texture,
             width,
-            height,
+            height ,
         );
+
     }
 
     public getView() {

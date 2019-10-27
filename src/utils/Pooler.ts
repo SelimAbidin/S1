@@ -43,17 +43,30 @@ class Pooler {
         return null;
     }
 
-    public update() {
+    // DEBUG
+    // public update() {
+    //     let keys = Object.keys(this.deadPool);
+    //     keys.forEach(key => {
 
-        // let alienInUse = this.inUsePool["alien"] && this.inUsePool["alien"].length
-        // let alienDead = this.deadPool["alien"] && this.deadPool["alien"].length
-        // console.log("Alien In Use :", alienInUse, "Alien Dead:", alienDead, "T:", (alienDead + alienInUse));
+    //         let inuse = []
+    //         if (Array.isArray(this.inUsePool[key])) inuse = this.inUsePool[key];
 
-        // let alienInUse = this.inUsePool["bullet"] && this.inUsePool["bullet"].length
-        // let alienDead = this.deadPool["bullet"] && this.deadPool["bullet"].length
-        // console.log("Alien In Use :", alienInUse, "Alien Dead:", alienDead, "T:", (alienDead + alienInUse));
+    //         console.log(key, inuse.length);
 
-    }
+    //         if (this.deadPool[key].length + inuse.length < 200) {
+    //             console.log(this.deadPool[key].length + inuse.length, key);
+
+    //         }
+    //     })
+
+    //     // let alienInUse = this.inUsePool["alien"] && this.inUsePool["alien"].length
+    //     // let alienDead = this.deadPool["alien"] && this.deadPool["alien"].length
+    //     // console.log("Alien In Use :", alienInUse, "Alien Dead:", alienDead, "T:", (alienDead + alienInUse));
+    //     // let alienInUse = this.inUsePool["bullet"] && this.inUsePool["bullet"].length
+    //     // let alienDead = this.deadPool["bullet"] && this.deadPool["bullet"].length
+    //     // console.log("Alien In Use :", alienInUse, "Alien Dead:", alienDead, "T:", (alienDead + alienInUse));
+
+    // }
 }
 
 export { Pooler };

@@ -1,12 +1,13 @@
-import { Sprite, Texture, Point } from "pixi.js";
+import { Point } from "pixi.js";
 import { IBullet } from "./IBullet";
 import { Object2D } from "../Object2D";
+import { BulletType } from "../../factories/BulletFactory";
 
 
 class Bullet extends Object2D implements IBullet {
 
     public hitEnemy: boolean = true;
-
+    public type: BulletType;
     protected speed: number = 20;
     protected velocity: Point = new Point(0, -1);
 
