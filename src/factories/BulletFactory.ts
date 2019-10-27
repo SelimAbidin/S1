@@ -1,4 +1,4 @@
-import { Bullet } from "../Bullet";
+import { Bullet } from "../display/bullets/Bullet";
 
 enum BulletType {
     LASER = 'LASER'
