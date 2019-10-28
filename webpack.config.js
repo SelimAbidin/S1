@@ -1,21 +1,23 @@
-const {join} = require('path')
+const { join } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin');
 
 
 const devServer = {
-    port:9000,
-    contentBase:join(__dirname, 'build')
+    port: 9000,
+    contentBase: join(__dirname, 'build')
 }
 
 module.exports = {
     entry: './src/index.ts',
     output: {
-        path: join(__dirname,'build'),
+        path: join(__dirname, 'build'),
         filename: 'main.js'
     },
     devServer,
-
+    resolve: {
+        extensions: ['.ts', '.js']
+    },
     module: {
         rules: [
             {
@@ -32,6 +34,6 @@ module.exports = {
         }),
         new CopyPlugin([
             { from: 'assets', to: 'assets' }
-          ]),
-        ]
+        ]),
+    ]
 }   
