@@ -22,7 +22,6 @@ class EnemyManager {
 
     public createEnemyAt(x: number, y: number, type: EnemyTypes) {
 
-
         const enemy: IEnemy = this.pooler.getNext(type) as IEnemy;
 
         // console.log("type : ", type, enemy.type);

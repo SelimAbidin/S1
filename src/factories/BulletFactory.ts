@@ -30,7 +30,7 @@ class BulletFactory {
             view.zIndex = 0;
 
             const bullet = new Bullet(view as IEngineView);
-            bullet.type = BulletType.LASER
+            bullet.type = BulletType.LASER;
             bullet.hitEnemy = true;
             return bullet;
         } else if (type === BulletType.ALIEN_BULLET) {
@@ -41,7 +41,7 @@ class BulletFactory {
             view.zIndex = 0;
 
             const bullet = new AlienBullet(view);
-            bullet.type = BulletType.ALIEN_BULLET
+            bullet.type = BulletType.ALIEN_BULLET;
             bullet.hitEnemy = false;
             return bullet;
         }
