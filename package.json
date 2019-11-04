@@ -11,7 +11,8 @@
     "dev": "webpack --mode development",
     "dev:server": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-    "lint": "tslint src/**/*.ts"
+    "lint": "tslint src/**/*.ts",
+    "test": "karma start --single-run --no-auto-watch"
   },
   "devDependencies": {
     "@types/jasmine": "^3.4.5",
