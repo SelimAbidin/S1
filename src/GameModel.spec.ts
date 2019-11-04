@@ -1,4 +1,4 @@
-import { GameModel } from "../src/GameModel";
+import { GameModel } from "./GameModel";
 
 describe("GameModel tests", () => {
   let model: GameModel;
